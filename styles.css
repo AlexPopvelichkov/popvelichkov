@@ -1,0 +1,457 @@
+:root {
+    /* Dark theme (default) */
+    --background: #0A0A0A;
+    --text: #FFFFFF;
+    --text-secondary: #888888;
+    --accent: #1A1A1A;
+    
+    --card-bg: #141414;
+    --navbar-bg: rgba(10,10,10,0.9);
+    --gradient-1: linear-gradient(45deg, #4ECDC4, #4158D0);
+    --gradient-2: linear-gradient(45deg, #4158D0, #4ECDC4);
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+    height: 18px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    background-color: var(--text-secondary);
+    border-radius: 7px;
+    transition: opacity 0.3s ease;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+/* Add auto-hide scrollbar */
+.scroll-hidden::-webkit-scrollbar-thumb {
+    opacity: 0;
+}
+
+[data-theme="light"] {
+    --background: #FFFFFF;
+    --text: #1A1A1A;
+    --text-secondary: #666666;
+    --accent: #F5F5F5;
+    --card-bg: #F8F8F8;
+    --navbar-bg: rgba(255,255,255,0.9);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 90%;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    border-radius: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3),
+                0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.navbar::after {
+    display: none;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.nav-links {
+    display: flex;
+    gap: 4rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: opacity 0.3s ease;
+    opacity: 0.7;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-container {
+    width: 93%;
+    margin: 0rem auto 0;
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    min-height: 70vh;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 10rem 2rem;
+    color: #FFFFFF;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    max-width: 800px;
+}
+
+.section {
+    padding: 2rem;
+    scroll-margin-top: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    -webkit-mask-image: linear-gradient(
+        to top,
+        black 90%,
+        transparent
+    );
+    mask-image: linear-gradient(
+        to top,
+        black 90%,
+        transparent
+    );
+}
+
+.section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #4ECDC4, #4158D0, #C850C0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+    position: relative;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card:hover::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(var(--angle), #4ECDC4, #4158D0, #C850C0);
+    border-radius: inherit;
+    z-index: -1;
+    animation: rotate-gradient 4s linear infinite;
+}
+
+.card:hover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--card-bg);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.card h4 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.card ul {
+    list-style-position: inside;
+    margin: 1rem 0;
+}
+
+.card li {
+    margin-bottom: 0.5rem;
+}
+
+.language-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.language-card {
+    background: var(--card-bg);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.skills-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.contact-info {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes rotate-gradient {
+    to {
+        --angle: 360deg;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+}
+/* Update the overlay styling to match the card hover border */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    display: none;
+    border: 1px solid transparent; /* Match card border */
+}
+
+.overlay.active::before {
+    content: '';
+    position: absolute;
+    inset: -1px; /* Increase inset to -5px for a thicker border */
+    background: linear-gradient(var(--angle), #4ECDC4, #4158D0, #C850C0);
+    border-radius: calc(1rem + 5px); /* Expand border-radius to prevent clipping */
+    z-index: -1;
+    animation: rotate-gradient 4s linear infinite;
+    padding: 5px; /* Ensures the border has proper thickness */
+}
+
+
+
+.overlay.active::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: var(--card-bg);
+    border-radius: inherit;
+    z-index: -1;
+}
+
+.overlay-content {
+    background-color: transparent;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    overflow-y: auto;
+    z-index: 2001; /* Ensure content is above the gradient background */
+}
+
+.overlay.active .overlay-content {
+    opacity: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    color: var(--text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2100;
+    transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.gallery img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+#overlay-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+#overlay-description h4 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* Add theme toggle button styles */
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text);
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.overlay {
+    overflow: hidden; /* Remove scrollbar */
+}
+
+.expanded-image-container {
+    position: fixed;
+    top: 15%;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden; /* Ensure image doesn't overflow container */
+}
+
+.expanded-image {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: transform 0.15s ease-out; /* Smooth but fast zoom transition */
+    cursor: zoom-in;
+}
+
+/* Remove these classes as they're no longer needed */
+.expanded-image.zoomed,
+.gallery-image.fading {
+    display: none;
+}
+
+.gallery-image {
+    transition: opacity 0.3s ease;
+}
+
+.gallery-image.fading {
+    opacity: 0;
+}
+
+.close-expanded-image {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2100; /* Ensure it appears above the expanded image */
+}
