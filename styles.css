@@ -406,19 +406,46 @@ body {
     overflow: hidden; /* Remove scrollbar */
 }
 
+.image-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 2500; /* Higher than overlay (2000) but lower than expanded image */
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .expanded-image-container {
     position: fixed;
-    top: 15%;
-    bottom: 15%;
+    top: 5%;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
+    z-index: 3000;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--card-bg);
     border-radius: 12px;
-    overflow: hidden; /* Ensure image doesn't overflow container */
+    overflow: hidden;
+    width: 90%;
+    max-width: 1400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .expanded-image {
@@ -426,7 +453,7 @@ body {
     width: auto;
     object-fit: contain;
     border-radius: 12px;
-    transition: transform 0.15s ease-out; /* Smooth but fast zoom transition */
+    transition: transform 0.15s ease-out;
     cursor: zoom-in;
 }
 
@@ -454,4 +481,97 @@ body {
     border: none;
     cursor: pointer;
     z-index: 2100; /* Ensure it appears above the expanded image */
+}
+
+.collapsed-view-only {
+    display: block;
+}
+
+.overlay .collapsed-view-only {
+    display: none;
+}
+
+/* Updated gallery layout styles */
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    width: 90%; /* Make the container narrower */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.image-group {
+    display: flex;
+    gap: 2rem; /* Increased gap between images */
+    width: 100%;
+}
+
+.image-wrapper {
+    flex: 1;
+    max-width: 45%; /* Make images narrower */
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+/* Revert expanded image container to original behavior */
+.expanded-image-container {
+    position: fixed;
+    top: 5%;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 1400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.expanded-image {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: transform 0.15s ease-out;
+    cursor: zoom-in;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .image-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .image-wrapper {
+        max-width: 90%;
+    }
+    
+    .gallery-image {
+        height: 250px;
+    }
 }
