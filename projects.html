@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Aerospace Engineering Portfolio</title>
+    <title>Projects - Your Aerospace Engineering Portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
@@ -32,47 +32,33 @@
         <div class="hero-container">
             <img src="gradient-hero-prerender.avif" alt="Hero Background" class="hero-image">
             <div class="hero-content">
-                <h1>Aerospace Engineering Student & CAD Specialist</h1>
-                <p>Combining technical expertise in CAD design with a passion for aviation and engineering</p>
+                <h1>Featured Projects</h1>
+                <p>Explore my latest engineering and design projects</p>
             </div>
         </div>
     </section>
 
-    <section class="profile-section">
-        <div class="profile-container">
-            <div class="profile-image">
-                <img src="images/profile.jpg" alt="Profile Picture">
-            </div>
-            <div class="profile-content">
-                <h2>About Me</h2>
-                <p>I am a passionate high school student with aspirations to become an aerospace engineer with expertise in CAD design and a strong foundation in engineering principles. My journey combines technical skills with creative problem-solving, focusing on innovative solutions in aerospace and mechanical design.</p>
-                <div class="profile-stats">
-                    <div class="stat">
-                        <span class="stat-number">3+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">Projects</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Languages</span>
-                    </div>
+    <section id="projects" class="section">
+        <div class="card-grid">
+            <div class="card" data-card-id="project-1" 
+                 data-gallery='["images/project1/main.jpg"]'>
+                <h3>Project Title</h3>
+                <h4>Brief Overview</h4>
+                <div class="card-description" style="display: none;">
+                    <h4>Duration: Jan 2023 - Mar 2023</h4>
+                    <p>Detailed description of the project goes here. You can include multiple paragraphs
+                    explaining the challenges, solutions, and outcomes.</p>
+                    
+                    <h4>Key Achievements:</h4>
+                    <ul>
+                        <li>Achievement 1</li>
+                        <li>Achievement 2</li>
+                        <li>Achievement 3</li>
+                    </ul>
+                    
+                    <h4>Technologies Used:</h4>
+                    <p>List of technologies, tools, or skills utilized in this project.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="gallery-scroller">
-        <div class="scroller" data-direction="left" data-speed="slow">
-            <div class="scroller__inner">
-                <!-- Images will be dynamically inserted here -->
-            </div>
-        </div>
-        <div class="scroller" data-direction="right" data-speed="fast">
-            <div class="scroller__inner">
-                <!-- Images will be dynamically inserted here -->
             </div>
         </div>
     </section>
@@ -102,4 +88,4 @@
         </div>
     </footer>
 </body>
-</html>
+</html> 

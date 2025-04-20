@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Your Aerospace Engineering Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="overlay" class="overlay">
+        <button class="close-btn">&times;</button>
+        <div class="overlay-content">
+            <h3 id="overlay-title"></h3>
+            <p id="overlay-description"></p>
+            <div id="gallery" class="gallery">
+                <!-- Images will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Popvelichkov</a>
+        <div class="nav-links">
+            <a href="about.html">About Me</a>
+            <a href="projects.html">Projects</a>
+            <a href="news.html">News</a>
+        </div>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </nav>
+
+    <section id="experience" class="section">
+        <h2>Work Experience</h2>
+        <div class="card-grid">
+            <div class="card" data-card-id="drafting-tech" 
+                 data-gallery='[
+                    "images/deform/image1.jpg",
+                    "images/deform/image2.jpg",
+                    "images/deform/image3.jpg",
+                    "images/deform/image4.jpg",
+                    "images/deform/image5.jpg",
+                    "images/deform/image6.jpg"
+                 ]'>
+                <h3>Drafting Technician</h3>
+                <h4>CAD Lightsource Ltd. | 2021 - Present</h4>
+                <ul class="collapsed-view-only">
+                    <li>CAD modeling functional parts and assemblies</li>
+                    <li>Weldment profiles for laser cutting</li>
+                    <li>Sheet metal laser cutting & bending</li>
+                    <li>3D printing and CNC routing</li>
+                    <li>Metal & gypsum casts</li>
+                    <li>Product visualization and furniture design</li>
+                </ul>
+                <div class="contact-info">
+                    Location: Varna, Bulgaria<br>
+                    Website: <a href="https://deform.bg/">deform.bg</a>
+                </div>
+                <div class="card-description" style="display: none;">
+                    <p>Since 2021, I have been applying my technical skills at my father's metal fabrication firm, specializing in CAD modeling functional parts and assemblies. My experience includes designing weldment profiles for laser beam and sheet metal cutting & bending; 3D printing, CNC routing, metal and gypsum casting, and rendering product concepts for client visualization. Over time, my tasks grew in complexity, allowing me to develop strong proficiency in SolidWorks.</p>
+                </div>
+            </div>
+
+            <div class="card" data-card-id="rebus-intern" 
+            data-gallery='[
+               "images/rebus/image1.jpg",
+               "images/rebus/image2.jpg"
+            ]'>
+                <h3>Intern</h3>
+                <h4>Rebus Flight School | 2024</h4>
+                <ul>
+                    <li>Aircraft maintenance and safety checks</li>
+                    <li>Antonov AN-2 restoration project</li>
+                    <li>Airfield operations and safety</li>
+                    <li>Administrative documentation</li>
+                </ul>
+                <div class="contact-info">
+                    Location: Silistra, Bulgaria<br>
+                    Website: <a href="https://www.rebusfly.cloud/">rebusfly.cloud</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Tech Intern</h3>
+                <h4>Kinetik Automotive - EduKartGO | 2023</h4>
+                <ul>
+                    <li>Go-kart structural CAD modeling</li>
+                    <li>ESC programming</li>
+                    <li>Component analysis and selection</li>
+                    <li>STEM education materials development</li>
+                </ul>
+                <div class="contact-info">
+                    Location: Varna, Bulgaria<br>
+                    Website: <a href="https://edukartgo.com/">edukartgo.com</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Tech Intern</h3>
+                <h4>Kinetik Automotive Ltd | 2022</h4>
+                <ul>
+                    <li>3D printing farm management</li>
+                    <li>CAD modeling for e-car components</li>
+                    <li>RTK GPS telemetry system development</li>
+                    <li>Drone operations and photogrammetry</li>
+                </ul>
+                <div class="contact-info">
+                    Location: Varna, Bulgaria<br>
+                    Website: <a href="https://kinetikautomotive.com/">kinetikautomotive.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section">
+        <h2>Education</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>High School of Mathematics "Dr. Petar Beron"</h3>
+                <h4>Second Stage of Secondary Education | 2023-2025</h4>
+                <ul>
+                    <li>Mathematics specialization</li>
+                    <li>Programming: C#, Python, SQL</li>
+                    <li>Web development: HTML & CSS</li>
+                    <li>Design software proficiency</li>
+                </ul>
+                <div class="contact-info">
+                    Location: Varna, Bulgaria<br>
+                    Level: EQF 4
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Dr.-Wilhelm-André-Gymnasium</h3>
+                <h4>Exchange Year | 2022-2023</h4>
+                <ul>
+                    <li>Art and Music focus</li>
+                    <li>Natural sciences emphasis</li>
+                    <li>German language immersion</li>
+                </ul>
+                <div class="contact-info">
+                    Location: Chemnitz, Germany<br>
+                    Final Grade: 76%
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="languages" class="section">
+        <h2>Language Skills</h2>
+        <div class="language-grid">
+            <div class="language-card">
+                <h3>Bulgarian</h3>
+                <p>Native</p>
+            </div>
+            <div class="language-card">
+                <h3>English</h3>
+                <p>C1-C2 Level</p>
+            </div>
+            <div class="language-card">
+                <h3>German</h3>
+                <p>C1 Level</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <h2>Technical Skills</h2>
+        <div class="skills-section">
+            <div class="card">
+                <h3>CAD</h3>
+                <ul>
+                    <li>SolidWorks</li>
+                    <li>SW sheet metal</li>
+                    <li>SW visual rendering</li>
+                    <li>SW weldment profiles</li>
+                    <li>CorelDraw</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Engineering</h3>
+                <ul>
+                    <li>FEM Ansys</li>
+                    <li>Structural Analysis</li>
+                    <li>Flow Analysis</li>
+                    <li>Microsoft Excel</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Programming</h3>
+                <ul>
+                    <li>HTML & CSS</li>
+                    <li>Python</li>
+                    <li>Arduino</li>
+                    <li>C# (basic)</li>
+                    <li>Raspberry Pi</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: your.email@example.com</p>
+                <p>Phone: +359 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Me</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">GitHub</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Location</h3>
+                <p>Varna, Bulgaria</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Popvelichkov V. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 

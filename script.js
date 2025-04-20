@@ -1,3 +1,12 @@
+// Remove all gallery-related code
+// Remove the following:
+// - DOMContentLoaded event listener for gallery
+// - allImages array
+// - shuffleArray function
+// - gallery row initialization
+// - animationiteration event listener
+// - click event handlers for gallery items
+
 document.addEventListener('DOMContentLoaded', () => {
     // Preload gallery images
     preloadGalleryImages();
@@ -14,6 +23,70 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeCard = null;
     let originalCardRect = null;
     let isAnimating = false; // Flag to prevent animation conflicts
+    
+    // Add reveal more indicators to cards with descriptions
+    cards.forEach(card => {
+        const description = card.querySelector('.card-description');
+        
+        // Only proceed with modifications if the card has a description
+        if (description) {
+            // Mark card as having a description
+            card.classList.add('has-description');
+            
+            // Create and add the "reveal more" indicator
+            const revealMore = document.createElement('div');
+            revealMore.classList.add('reveal-more');
+            revealMore.innerHTML = `
+                <span>Click to reveal more</span>
+                <div class="padlock"></div>
+            `;
+            
+            // Add click handler specifically for the reveal more button
+            revealMore.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event from bubbling to card
+                
+                if (!card.classList.contains('expanded')) {
+                    card.classList.add('expanded');
+                } else {
+                    card.classList.remove('expanded');
+                }
+            });
+            
+            card.appendChild(revealMore);
+            
+            // Make sure description is at the end of the card
+            card.appendChild(description);
+            
+            // Add click handler for toggling expanded state
+            card.addEventListener('click', function(e) {
+                // Get if the click was on a link or other interactive element
+                const isInteractiveElement = e.target.tagName === 'A' || 
+                                            e.target.tagName === 'BUTTON' ||
+                                            e.target.closest('a') || 
+                                            e.target.closest('button');
+                
+                // If clicking on an interactive element or the reveal more button, don't handle here
+                if (isInteractiveElement || e.target.closest('.reveal-more')) {
+                    return;
+                }
+                
+                // If card is not expanded, expand it
+                if (!card.classList.contains('expanded')) {
+                    card.classList.add('expanded');
+                    e.stopPropagation();
+                } else {
+                    // If clicking content in expanded state, allow overlay to open
+                    // If clicking empty space, collapse the card
+                    const isEmptySpace = e.target === card;
+                    if (isEmptySpace) {
+                        card.classList.remove('expanded');
+                        e.stopPropagation();
+                    }
+                    // Otherwise let the click bubble up to handle overlay opening
+                }
+            });
+        }
+    });
     
     // Hide overlay initially
     overlay.style.display = 'none';
@@ -109,9 +182,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // Add click event listeners to all cards
+    // Add click event listeners to all cards for overlay functionality
     cards.forEach(card => {
-        card.addEventListener('click', () => {
+        card.addEventListener('click', (e) => {
+            // Only open overlay if card is expanded or doesn't have a description
+            const hasDescription = card.querySelector('.card-description');
+            const isExpanded = card.classList.contains('expanded');
+            
+            // Don't open overlay for cards with descriptions that aren't expanded yet
+            if (hasDescription && !isExpanded) {
+                return;
+            }
+            
+            // Don't open overlay if clicking the "reveal more" button
+            if (e.target.closest('.reveal-more')) {
+                return;
+            }
+            
             // If overlay is already active, first close it with a quick animation
             if (overlay.classList.contains('active')) {
                 // Store the current card dimensions for a smoother transition
@@ -263,11 +350,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 expandedImage.src = img.src;
                 expandedImage.classList.add('expanded-image');
                 
+                // Create close button
+                const closeButton = document.createElement('button');
+                closeButton.classList.add('close-expanded-btn');
+                
                 // Create a backdrop element for blur/dim effect
                 const backdrop = document.createElement('div');
                 backdrop.classList.add('image-backdrop');
                 
                 imageContainer.appendChild(expandedImage);
+                imageContainer.appendChild(closeButton);
                 
                 // Append backdrop to document.body first, then the container
                 document.body.appendChild(backdrop);
@@ -303,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                // Create a function to close just the expanded image view
+                // Create a function to close the expanded image view
                 function closeExpandedImage(e) {
                     e.stopPropagation();
                     
@@ -313,12 +405,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (document.body.contains(backdrop)) {
                         document.body.removeChild(backdrop);
                     }
-                    
-                    backdrop.removeEventListener('click', closeExpandedImage);
                 }
 
-                // Add click event to backdrop to close the expanded image
+                // Add click event to backdrop and close button to close the expanded image
                 backdrop.addEventListener('click', closeExpandedImage);
+                closeButton.addEventListener('click', closeExpandedImage);
                 
                 // Prevent clicks on the image container from closing
                 imageContainer.addEventListener('click', (e) => {
@@ -344,8 +435,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     expandedImage.style.width = 'auto';
                     
                     // Ensure the container isn't too wide for the screen
-                    if (imageContainer.offsetWidth > window.innerWidth * 0.9) {
-                        imageContainer.style.width = '90vw';
+                    if (imageContainer.offsetWidth > window.innerWidth * 0.95) {
+                        imageContainer.style.width = '95vw';
                     }
                 };
             });
@@ -369,17 +460,6 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.textContent = newTheme === 'dark' ? '🌙' : '☀️';
     });
 
-    // Add scrollbar auto-hide functionality
-    let scrollTimeout;
-    document.addEventListener('scroll', () => {
-        document.body.classList.remove('scroll-hidden');
-        
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            document.body.classList.add('scroll-hidden');
-        }, 1500); // Hide after 1.5 seconds of inactivity
-    });
-
     // Function to preload all gallery images
     function preloadGalleryImages() {
         const cards = document.querySelectorAll('.card[data-gallery]');
@@ -396,6 +476,61 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.warn('Error preloading gallery images:', error);
             }
+        });
+    }
+
+    // Initialize scrollers
+    const scrollers = document.querySelectorAll(".scroller");
+
+    // If a user hasn't opted in for reduced motion, then we add the animation
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        addAnimation();
+    }
+
+    function addAnimation() {
+        scrollers.forEach((scroller) => {
+            // add data-animated="true" to every `.scroller` on the page
+            scroller.setAttribute("data-animated", true);
+
+            // Make an array from the elements within `.scroller-inner`
+            const scrollerInner = scroller.querySelector(".scroller__inner");
+            
+            // Load random images from the gallery
+            loadRandomImages(scrollerInner);
+        });
+    }
+
+    function loadRandomImages(scrollerInner) {
+        // Get all images from the gallery
+        const galleryImages = [
+            "images/deform/image1.jpg",
+            "images/deform/image2.jpg",
+            "images/deform/image3.jpg",
+            "images/deform/image4.jpg",
+            "images/deform/image5.jpg",
+            "images/deform/image6.jpg",
+            "images/rebus/image1.jpg",
+            "images/rebus/image2.jpg"
+        ];
+
+        // Shuffle the array
+        const shuffledImages = galleryImages.sort(() => Math.random() - 0.5);
+
+        // Add images to the scroller
+        shuffledImages.forEach((imagePath) => {
+            const img = document.createElement('img');
+            img.src = imagePath;
+            img.alt = 'Gallery Image';
+            img.loading = 'lazy';
+            scrollerInner.appendChild(img);
+        });
+
+        // Clone the images for seamless scrolling
+        const scrollerContent = Array.from(scrollerInner.children);
+        scrollerContent.forEach((item) => {
+            const duplicatedItem = item.cloneNode(true);
+            duplicatedItem.setAttribute("aria-hidden", true);
+            scrollerInner.appendChild(duplicatedItem);
         });
     }
 });
